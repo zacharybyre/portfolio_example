@@ -9,18 +9,13 @@ import Contact from "./pages/contact";
 import Blog from "./pages/blog";
 import PortfolioDetail from "./portfolio/portfolio-detail"
 import NoMatch from "./pages/no-match"
-import axios from "axios";
-
-
-
-
 export default class App extends Component {
   render() {
     return (
-      <div className="app">
+      <div className="container">
         <Router>
           <div>
-             <h1>Zachary Byres Portfolio</h1>
+             
               <NavigationContainer />
               <Switch>
                 <Route exact path="/" component={Home} />
