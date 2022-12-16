@@ -27,9 +27,11 @@ export default class PortfolioContainer extends Component {
 
   getPortfolioItems() {
     axios
-    .get("https://zacharybyre.devcamp.space/portfolio/portfolio_items")
+    .get("https://zacharybyre1.devcamp.space/portfolio/portfolio_items")
     .then(response => {
-      console.log("response data", response);
+        this.setState({
+            data: response.data.portfolio_items
+        });
     })
     .catch(error => {
       console.log(error);
@@ -39,12 +41,23 @@ export default class PortfolioContainer extends Component {
     portfolioItems() {
         return this.state.data.map(item => {
             return (
-            <PortfolioItem  title={item.title}  url={"google.com"} slug={item.slug} />
+            <PortfolioItem
+                key={ item.id }
+                item={item}
+                 />
             );
         });
     }
 
+    componentDidMount() {
+        this.getPortfolioItems();
+    }
+
     render() {
+        if (this.state.isLoading) {
+            return <div>Loading...</div>
+        }
+ 
         return (
             <div>
                 <h2>{this.state.pageTitle}.</h2>
@@ -53,10 +66,8 @@ export default class PortfolioContainer extends Component {
                 <button onClick={() => this.handleFilter('Scheduling')}>Scheduling</button>
                 <button onClick={() => this.handleFilter('Enterprise')}>Enterprise</button>
 
-                {this.portfolioItems()}
-
-               
-            </div>
+                <div className="portfolio-items-wrapper">{this.portfolioItems()}</div>
+             </div>
         );
     }
 }
